@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <script>
+        String.prototype.toByteArrayFromHEX = function () {
+            var byteArray = new Uint8Array( this.length / 2 );
+            for (var x = 0; x < byteArray.length; x++) {
+                byteArray[x] = parseInt( this.substr(x*2,2), 16);
+            }
+            return byteArray;           
+        }            
+        
+        hex = '0061736D0100000001070160027F7F017F03020100050301000007120205746F706C610000066D656D6F727902000A09010700200020016A0B'
+        obj = await WebAssembly.instantiate( hex.toByteArrayFromHEX() )
+        
+        console.log( obj.instance.exports.topla )
+    </script>
+</body>
+</html>
